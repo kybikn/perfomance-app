@@ -1,8 +1,8 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function Header() {
-  let [expanded, setExpanded] = React.useState(false);
-  let [toggled, setToggled] = React.useState(false);
+  let [expanded, setExpanded] = useState(false);
+  let [toggled, setToggled] = useState(false);
 
   const onClick = () => {
     if (!toggled) {
@@ -33,7 +33,7 @@ function Header() {
 }
 
 function Event(props) {
-  const ref = React.useRef();
+  const ref = useRef();
   const { onSize } = props;
   useEffect(() => {
     const width = ref.current.offsetWidth;
@@ -167,13 +167,12 @@ for (let i = 0; i < 6; ++i) {
 const TABS_KEYS = Object.keys(TABS);
 
 function Main() {
-  const ref = React.useRef();
-  const initedRef = React.useRef(false);
-  const [activeTab, setActiveTab] = React.useState('');
-  const [hasRightScroll, setHasRightScroll] = React.useState(false);
-  // const [sizes, setSizes] = React.useState([]);
+  const ref = useRef();
+  const initedRef = useRef(false);
+  const [activeTab, setActiveTab] = useState('');
+  const [hasRightScroll, setHasRightScroll] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!activeTab && !initedRef.current) {
       initedRef.current = true;
       // eslint-disable-next-line
@@ -187,13 +186,11 @@ function Main() {
 
   let sizes = [];
   const onSize = (size) => {
-    // setSizes([...sizes, size])
     sizes = [...sizes, size];
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-
     const newHasRightScroll = sumWidth > ref.current.offsetWidth;
     if (newHasRightScroll !== hasRightScroll) {
       setHasRightScroll(newHasRightScroll);
@@ -230,7 +227,6 @@ function Main() {
               <div className="hero-dashboard__item-details">
                 +19
                 <span className="a11y-hidden">°</span>
-
                 <div
                   className="hero-dashboard__icon hero-dashboard__icon_rain"
                   role="img"
@@ -262,10 +258,8 @@ function Main() {
         </ul>
       </div>
     </section>
-
     <section className="section main__scripts">
       <h2 className="section__title section__title-header">Избранные сценарии</h2>
-
       <ul className="event-grid">
         <Event
           slim={true}
@@ -300,13 +294,11 @@ function Main() {
         />
       </ul>
     </section>
-
     <section className="section main__devices">
       <div className="section__title">
         <h2 className="section__title-header">
           Избранные устройства
         </h2>
-
         <select className="section__select" defaultValue="all" onInput={onSelectInput}>
           {TABS_KEYS.map(key =>
             <option key={key} value={key}>
@@ -314,7 +306,6 @@ function Main() {
             </option>
           )}
         </select>
-
         <ul role="tablist" className="section__tabs">
           {TABS_KEYS.map(key =>
             <li
@@ -332,7 +323,6 @@ function Main() {
           )}
         </ul>
       </div>
-
       <div className="section__panel-wrapper" ref={ref}>
         {TABS_KEYS.map(key =>
           <div key={key} role="tabpanel" className={'section__panel' + (key === activeTab ? '' : ' section__panel_hidden')} aria-hidden={key === activeTab ? 'false' : 'true'} id={`panel_${key}`} aria-labelledby={`tab_${key}`}>
@@ -354,7 +344,6 @@ function Main() {
     </section>
   </main>;
 }
-
 
 function App() {
   return (
