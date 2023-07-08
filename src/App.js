@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 
 function Header() {
@@ -9,7 +8,6 @@ function Header() {
     if (!toggled) {
       setToggled(true);
     }
-
     setExpanded(!expanded);
   };
 
@@ -36,10 +34,8 @@ function Header() {
 
 function Event(props) {
   const ref = React.useRef();
-
   const { onSize } = props;
-
-  React.useEffect(() => {
+  useEffect(() => {
     const width = ref.current.offsetWidth;
     const height = ref.current.offsetHeight;
     if (onSize) {
@@ -175,7 +171,7 @@ function Main() {
   const initedRef = React.useRef(false);
   const [activeTab, setActiveTab] = React.useState('');
   const [hasRightScroll, setHasRightScroll] = React.useState(false);
-  const [sizes, setSizes] = React.useState([]);
+  // const [sizes, setSizes] = React.useState([]);
 
   React.useEffect(() => {
     if (!activeTab && !initedRef.current) {
@@ -189,10 +185,10 @@ function Main() {
     setActiveTab(event.target.value);
   };
 
-  // let sizes = [];
+  let sizes = [];
   const onSize = (size) => {
-    setSizes([...sizes, size])
-    // sizes = [...sizes, size];
+    // setSizes([...sizes, size])
+    sizes = [...sizes, size];
   };
 
   React.useEffect(() => {
